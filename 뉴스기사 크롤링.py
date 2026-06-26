@@ -51,11 +51,67 @@ articles = driver.find_elements(
 
 print(f"수집된 기사 개수: {len(articles)}")
 
+news_data = list()
 
 for idx, article in enumerate(articles, start=1):
+    temp_list = list()
+    
     print("=" * 50)
     print(f"{idx}번째 기사")
-    print(article.text)
+    
+    temp_list.append(idx)
+    
+    article_list = article.text.replace('네이버뉴스\n','').split('\n')
+    
+    list_index = 0
+    
+    print(article_list[list_index])  #신문사
+    temp_list.append(article_list[list_index])
+    list_index += 1
+    
+    if '전' in article_list[1]:
+        print(article_list[1])
+        temp_list.append(article_list[1])
+        list_index += 1
+    elif '전' in article_list[2]:
+        print(article_list[2]) 
+        temp_list.append(article_list[2])
+        list_index += 2
+            
+    print(article_list[list_index])
+    temp_list.append(article_list[list_index])
+    list_index += 1
+    
+    print(article_list[list_index])
+    temp_list.append(article_list[list_index])
+    
+    news_data.append(temp_list)
+
+# 컬럼명 지정
+columns = ["순번", "신문사", "발행시각", "제목", "요약"]
+
+# 데이터프레임 생성
+df = pd.DataFrame(news_data, columns=columns)
+
+# 엑셀로 저장
+df.to_excel("naver_news_sample.xlsx", index=False)
+
+print("엑셀 저장 완료: naver_news_sample.xlsx")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
