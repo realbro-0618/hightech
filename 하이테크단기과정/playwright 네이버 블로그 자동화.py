@@ -117,6 +117,7 @@ def run():
         # 사용자에게 실제 본문 커서 위치 확인 요청
         #input("본문 작성 영역을 직접 클릭하고 커서를 놓은 다음 Enter를 누르세요.")
 
+        page.wait_for_timeout(1000)
         # iframe 내부에 키보드 이벤트 전달
         body.press("Control+V")
 
@@ -136,7 +137,7 @@ def run():
 
         # 제목 복사
         pyperclip.copy(BLOG_TITLE)
-
+        page.wait_for_timeout(1000)
         # 제목 붙여넣기
         page.keyboard.press("Control+V")
 
@@ -182,7 +183,7 @@ def run():
 
         print("카테고리 목록 열기 완료")
 
-        page.locator("iframe[name=\"mainFrame\"]").content_frame.get_by_role("button", name="디모프 신상 업데이트").click()
+        page.locator("iframe[name=\"mainFrame\"]").content_frame.get_by_role("button", name=BLOG_CATEGORY).click()
         print("카테고리 선택 완료")
         
         # ==================================
